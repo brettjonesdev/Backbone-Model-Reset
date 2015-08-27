@@ -1,0 +1,13 @@
+{
+  "name": "Backbone-Model-Reset",
+  "title": "Backbone Model Reset",
+  "version": "0.0.1",
+  "author": "Brett Jones",
+  "homepage": "http://github.com/brettjonesdev",
+  "devDependencies": {
+    "backbone": "^1.2.2",
+    "grunt": "~0.4.1",
+    "grunt-jasmine-node": "^0.3.1",
+    "underscore": "^1.8.3"
+  }
+}
