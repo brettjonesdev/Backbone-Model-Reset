@@ -1,5 +1,5 @@
 var Backbone = require("backbone");
-require('../js/backbone-model-reset');
+require('../backbone-model-reset');
 describe('Model Reset tests', function () {
     describe('Test Backbone.Model.reset', function () {
         var model;
