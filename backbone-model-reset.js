@@ -20,10 +20,11 @@
 
         //get the attributes which are currently present but not present in the new attrs object
         var attributesToUnset = _.difference(_.keys(this.attributes), _.keys(attrs));
-        //unset them all
-        _.each(attributesToUnset, _.bind(function(attr) {
-            this.unset(attr, options);
-        }, this));
+        var unsetObject = _.object(_.map(attributesToUnset, function(attr) {
+            return [attr, undefined];
+        }));
+        //Must call `set` directly here, since `unset` Backbone helper fails to pass `options` in properly
+        this.set(unsetObject, _.extend({}, options, {unset: true}));
 
         //set the attributes that are passed in, secure in knowledge that any old attributes not present were unset
         this.set(attrs, options);

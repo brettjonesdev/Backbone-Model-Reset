@@ -12,6 +12,11 @@ describe('Model Reset tests', function () {
             expect(typeof model.reset).toEqual('function');
         });
 
+        function expectChangeHandlerToHaveBeenCalledWith(changeHandler, expectedModelValues) {
+            var changeHandlerModelArg = changeHandler.calls[0].args[0];
+            expect(changeHandlerModelArg.attributes).toEqual(expectedModelValues);
+        }
+
         it('model.reset() sets unsets and where appropriate, and triggers change events properly', function () {
             var originalAttributes = {
                 a: 1,
@@ -45,10 +50,24 @@ describe('Model Reset tests', function () {
             expect(cChange).toHaveBeenCalled();
             expect(dChange).toHaveBeenCalled();
 
+            //When change handlers are called, expect them to have _all_ of the changes from `reset`
+            expectChangeHandlerToHaveBeenCalledWith(aChange, newAttrs);
+            expectChangeHandlerToHaveBeenCalledWith(cChange, newAttrs);
+            expectChangeHandlerToHaveBeenCalledWith(dChange, newAttrs);
 
             //model.reset() set/unset all attributes appropriately
             expect(model.get('c')).toBeUndefined();
             expect(model.toJSON()).toEqual(newAttrs);
+
+            var changeHandler = jasmine.createSpy('changeHandler');
+            model.on('change', changeHandler);
+
+            model.reset();
+
+            expect(changeHandler).toHaveBeenCalled();
+            var changeHandlerModelArg = changeHandler.calls[0].args[0];
+            expect(changeHandlerModelArg.toJSON()).toEqual({});
+            expect(model.toJSON()).toEqual({});
         });
 
         it('model.reset() passes `options` into unset and set calls', function () {

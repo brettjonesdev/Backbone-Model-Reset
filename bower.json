@@ -1,7 +1,7 @@
 {
   "name": "backbone-model-reset",
   "main": "backbone-model-reset.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/brettjonesdev/Backbone-Model-Reset",
   "authors": [
     "Brett Jones <brettjonesdev@gmail.com>"
