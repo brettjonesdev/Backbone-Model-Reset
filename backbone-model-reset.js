@@ -21,10 +21,12 @@
         //get the attributes which are currently present but not present in the new attrs object
         var attributesToUnset = _.difference(_.keys(this.attributes), _.keys(attrs));
         //unset them all
-        _.each(attributesToUnset, _.bind(this.unset, this));
+        _.each(attributesToUnset, _.bind(function(attr) {
+            this.unset(attr, options);
+        }, this));
 
         //set the attributes that are passed in, secure in knowledge that any old attributes not present were unset
-        this.set(attrs);
+        this.set(attrs, options);
     };
     return Backbone;
 }));
